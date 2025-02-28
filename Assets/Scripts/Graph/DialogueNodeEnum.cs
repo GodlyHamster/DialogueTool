@@ -1,7 +1,8 @@
 ﻿using System;
 
 [Serializable]
-public enum DialogeNodes
+public enum NodeTypes
 {
+    StartNode,
     TextNode
 }

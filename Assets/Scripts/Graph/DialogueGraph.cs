@@ -15,23 +15,27 @@ public class DialogueGraph : MonoBehaviour
     {
         Debug.Log($"Created new start node");
         GameObject node = Instantiate(StartNodePrefab, transform);
-        InstantiateNode(node.AddComponent<DialogueStartNode>(), node);
+        InstantiateNode(new DialogueStartNode(), node);
     }
 
     public void CreateTextNode()
     {
         Debug.Log($"Created new text node");
         GameObject node = Instantiate(TextNodePrefab, transform);
-        InstantiateNode(node.AddComponent<DialogueTextNode>(), node);
+        InstantiateNode(new DialogueTextNode(), node);
     }
 
     public bool InstantiateNode(DialogueBaseNode node, GameObject linkedObject)
     {
+        DialogueNode dialogueNode = linkedObject.GetComponent<DialogueNode>();
+        dialogueNode.node = node;
+        dialogueNode.node.Setup();
+
         nodes.Add(node);
+
         if (linkedObject.TryGetComponent<RectTransform>(out RectTransform rect))
         {
-            rect.anchoredPosition = node.Position;
-            rect.sizeDelta = node.Size * 100;
+            rect.anchoredPosition = node.NodePosition;
         }
         else
         {

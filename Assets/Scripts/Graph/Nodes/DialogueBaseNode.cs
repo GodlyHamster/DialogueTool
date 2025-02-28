@@ -1,15 +1,6 @@
-using Assets.Scripts;
-using UnityEngine;
+using System;
 
-public abstract class DialogueBaseNode : MonoBehaviour, NodeDataInterface
+[Serializable]
+public abstract class DialogueBaseNode : NodeData
 {
-    public virtual Vector2 Position { get; set; } = Vector2.zero;
-    public virtual Vector2 Size { get; set; } = new Vector2(5, 3);
-
-    public bool isBeingDragged = false;
-
-    public void SetPosition(Vector2 position)
-    {
-        Position = position;
-    }
 }

@@ -660,7 +660,7 @@ GameObject:
   - component: {fileID: 6061520497437705564}
   - component: {fileID: 3852234823498584340}
   - component: {fileID: 6124877877760732380}
-  - component: {fileID: 1073398006871528565}
+  - component: {fileID: 2412852135423626643}
   m_Layer: 5
   m_Name: TextNode
   m_TagString: GraphNode
@@ -729,7 +729,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.5
---- !u!114 &1073398006871528565
+--- !u!114 &2412852135423626643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9009193956168939268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ec84ffa89378f54ab20285203699699, type: 3}
+  m_Script: {fileID: 11500000, guid: c01f18edad2c10b479c676db50b0953c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isBeingDragged: 0
@@ -891,7 +891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e33f6da3fb2e0547b712aed40210a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 1073398006871528565}
+  parent: {fileID: 2412852135423626643}
   window: {fileID: 6061520497437705564}
   graphCanvas: {fileID: 0}
 --- !u!1001 &535196107732310847
@@ -985,7 +985,7 @@ PrefabInstance:
     - target: {fileID: 2244660695782043163, guid: 578c6d7b5ae18b543bd65f8e97ba78a1, type: 3}
       propertyPath: parent
       value: 
-      objectReference: {fileID: 1073398006871528565}
+      objectReference: {fileID: 2412852135423626643}
     - target: {fileID: 6388773778540731429, guid: 578c6d7b5ae18b543bd65f8e97ba78a1, type: 3}
       propertyPath: m_Name
       value: OutputNode
@@ -1011,7 +1011,7 @@ PrefabInstance:
     - target: {fileID: 1860354438801593960, guid: 0a6a46a189dbe8a448519d31d2f258c7, type: 3}
       propertyPath: parent
       value: 
-      objectReference: {fileID: 1073398006871528565}
+      objectReference: {fileID: 2412852135423626643}
     - target: {fileID: 2227698655892638533, guid: 0a6a46a189dbe8a448519d31d2f258c7, type: 3}
       propertyPath: m_Name
       value: InputNode

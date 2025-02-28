@@ -7,7 +7,7 @@ namespace Assets.Scripts.Graph
     public class DraggableWindow : MonoBehaviour, IDragHandler, IEndDragHandler
     {
         [SerializeField]
-        private DialogueBaseNode parent;
+        private DialogueNode parent;
         [SerializeField]
         private RectTransform window;
         [SerializeField]
