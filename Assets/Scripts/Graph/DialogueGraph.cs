@@ -9,6 +9,7 @@ public class DialogueGraph : MonoBehaviour
     private GameObject TextNodePrefab;
 
     private List<DialogueBaseNode> nodes = new List<DialogueBaseNode>();
+    public List<DialogueBaseNode> Nodes { get { return nodes; } }
 
     public void CreateStartNode()
     {

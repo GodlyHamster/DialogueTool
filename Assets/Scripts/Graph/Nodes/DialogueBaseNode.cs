@@ -1,6 +1,5 @@
 using Assets.Scripts;
 using UnityEngine;
-using UnityEngine.Events;
 
 public abstract class DialogueBaseNode : MonoBehaviour, NodeDataInterface
 {
