@@ -1,7 +1,7 @@
-using System.IO;
-using System.Text;
 using UnityEditor;
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 public class FileManager : MonoBehaviour
 {
@@ -12,7 +12,8 @@ public class FileManager : MonoBehaviour
     public void LoadFile()
     {
         string datapath = EditorUtility.OpenFilePanel("Open Dialogue File", Application.dataPath, "json");
-        Debug.Log(datapath);
+
+        if (string.IsNullOrEmpty(datapath)) return;
     }
 
     [ContextMenu("Save File")]
@@ -22,17 +23,19 @@ public class FileManager : MonoBehaviour
 
         if (string.IsNullOrEmpty(datapath)) return;
 
-        StringBuilder sb = new StringBuilder();
+        Savefile file = new Savefile(dialogueGraph.Nodes);
+        Debug.Log(JsonUtility.ToJson(file, true));
+    }
 
-        foreach (var item in dialogueGraph.Nodes)
+    [Serializable]
+    public class Savefile
+    {
+        [SerializeReference]
+        public List<DialogueBaseNode> testNodes;
+
+        public Savefile(List<DialogueBaseNode> nodes)
         {
-            string jsonNode = JsonUtility.ToJson(item, true);
-            sb.AppendLine(jsonNode);
+            this.testNodes = nodes;
         }
-
-        StreamWriter streamWriter = new StreamWriter(datapath, false);
-        streamWriter.Write(sb);
-        streamWriter.Flush();
-        streamWriter.Close();
     }
 }

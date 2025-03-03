@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class NodeData
 {
     public NodeTypes NodeType;
-    public Vector2 NodePosition = Vector2.zero;
+    public Vector2 NodePosition;
 
     public abstract void Setup();
 }
