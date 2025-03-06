@@ -1,15 +1,20 @@
 using Assets.Scripts.Graph;
 using UnityEngine;
 
-public class DialogueTextNode : DialogueBaseNode
+public class DialogueTextNodeData : DialogueBaseNodeData
 {
     [field: SerializeField]
     private string text;
     private NodeInput inputNode;
     private NodeOutput outputNode;
 
-    public override void Setup()
+    public void SetText(string text)
     {
-        NodeType = NodeTypes.TextNode;
+        this.text = text;
+    }
+
+    public string GetText()
+    {
+        return text;
     }
 }

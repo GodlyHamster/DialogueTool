@@ -63,11 +63,15 @@ public class FileManager : MonoBehaviour
     public class SaveData
     {
         [SerializeReference]
-        public List<DialogueBaseNode> nodes;
+        public List<DialogueBaseNodeData> nodes;
 
-        public SaveData(List<DialogueBaseNode> nodes)
+        public SaveData(List<DialogueBaseNodeUI> nodes)
         {
-            this.nodes = nodes;
+            this.nodes = new List<DialogueBaseNodeData>();
+            foreach (var node in nodes)
+            {
+                this.nodes.Add(node.nodeData);
+            }
         }
     }
 }

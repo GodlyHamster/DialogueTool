@@ -6,7 +6,7 @@ namespace Assets.Scripts.Graph
     //TODO: make code more DRY, nodeOutput has lot of same code
     public class NodeInput : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
-        public DialogueNode parent;
+        public DialogueBaseNodeUI parent;
         public NodeOutput connectedOutput;
         public LineRenderer lineRenderer;
 
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Graph
         {
             if (parent == null)
             {
-                parent = GetComponentInParent<DialogueNode>();
+                parent = GetComponentInParent<DialogueBaseNodeUI>();
             }
         }
 

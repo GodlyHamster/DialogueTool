@@ -9,35 +9,35 @@ public class DialogueGraph : MonoBehaviour
     [SerializeField]
     private GameObject TextNodePrefab;
 
-    private List<DialogueBaseNode> nodes = new List<DialogueBaseNode>();
-    public List<DialogueBaseNode> Nodes { get { return nodes; } }
+    private List<DialogueBaseNodeUI> nodes = new List<DialogueBaseNodeUI>();
+    public List<DialogueBaseNodeUI> Nodes { get { return nodes; } }
 
     public void CreateStartNode()
     {
-        foreach (DialogueBaseNode item in nodes)
+        foreach (DialogueBaseNodeUI item in nodes)
         {
-            if (item.GetType() == typeof(DialogueStartNode))
+            if (item.GetType() == typeof(DialogueStartNodeUI))
             {
                 Debug.LogWarning("A start node already exists!");
                 return;
             }
         }
         GameObject node = Instantiate(StartNodePrefab, transform);
-        InstantiateNode(new DialogueStartNode(), node);
+        InstantiateNode(new DialogueStartNodeData(), node);
     }
 
     public void CreateTextNode()
     {
         GameObject node = Instantiate(TextNodePrefab, transform);
-        InstantiateNode(new DialogueTextNode(), node);
+        InstantiateNode(new DialogueTextNodeData(), node);
     }
 
-    public void LoadGraphFromArray(DialogueBaseNode[] nodeList)
+    public void LoadGraphFromArray(DialogueBaseNodeData[] nodeList)
     {
-        foreach (DialogueBaseNode node in nodeList)
+        foreach (DialogueBaseNodeData nodeData in nodeList)
         {
             GameObject nodePrefab = null;
-            switch (node.NodeType)
+            switch (nodeData.NodeType)
             {
                 case NodeTypes.StartNode:
                     nodePrefab = Instantiate(StartNodePrefab, transform);
@@ -50,21 +50,21 @@ public class DialogueGraph : MonoBehaviour
                     break;
             }
             if (nodePrefab == null) continue;
-            InstantiateNode(node, nodePrefab);
+            InstantiateNode(nodeData, nodePrefab);
         }
     }
 
-    public bool InstantiateNode(DialogueBaseNode node, GameObject linkedObject)
+    public bool InstantiateNode(DialogueBaseNodeData nodeData, GameObject linkedObject)
     {
-        DialogueNode dialogueNode = linkedObject.GetComponent<DialogueNode>();
-        dialogueNode.node = node;
-        dialogueNode.node.Setup();
+        DialogueBaseNodeUI dialogueNode = linkedObject.GetComponent<DialogueBaseNodeUI>();
+        dialogueNode.nodeData = nodeData;
+        dialogueNode.Setup();
 
-        nodes.Add(node);
+        nodes.Add(dialogueNode);
 
         if (linkedObject.TryGetComponent<RectTransform>(out RectTransform rect))
         {
-            rect.anchoredPosition = node.NodePosition;
+            rect.anchoredPosition = nodeData.NodePosition;
         }
         else
         {

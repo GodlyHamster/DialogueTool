@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 983373657299835917}
   - component: {fileID: 2635789887078855294}
   - component: {fileID: 5893749348889642702}
-  - component: {fileID: 6953678360271258166}
+  - component: {fileID: 4869146398109415208}
   m_Layer: 5
   m_Name: StartNode
   m_TagString: GraphNode
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.5
---- !u!114 &6953678360271258166
+--- !u!114 &4869146398109415208
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7271786670860027382}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01f18edad2c10b479c676db50b0953c, type: 3}
+  m_Script: {fileID: 11500000, guid: 022faa7c58799494e9514030697852ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isBeingDragged: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e33f6da3fb2e0547b712aed40210a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 6953678360271258166}
+  parent: {fileID: 4869146398109415208}
   window: {fileID: 983373657299835917}
   graphCanvas: {fileID: 0}
 --- !u!114 &157276304757740588
@@ -394,10 +394,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2244660695782043163, guid: 578c6d7b5ae18b543bd65f8e97ba78a1, type: 3}
-      propertyPath: parent
-      value: 
-      objectReference: {fileID: 6953678360271258166}
     - target: {fileID: 4923807973650833723, guid: 578c6d7b5ae18b543bd65f8e97ba78a1, type: 3}
       propertyPath: m_SortingLayer
       value: 0
