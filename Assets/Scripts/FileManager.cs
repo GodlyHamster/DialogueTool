@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.IO;
+using System.Text;
 
 public class FileManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class FileManager : MonoBehaviour
         string jsonString = reader.ReadToEnd();
 
         SaveData savedata = JsonUtility.FromJson<SaveData>(jsonString);
-        Debug.Log(savedata.testNodes);
+        dialogueGraph.LoadGraphFromArray(savedata.nodes.ToArray());
     }
 
     [ContextMenu("Save File")]
@@ -39,15 +40,34 @@ public class FileManager : MonoBehaviour
         sw.Close();
     }
 
+    [ContextMenu("Export File")]
+    public void ExportFile()
+    {
+        string datapath = EditorUtility.SaveFilePanel("Export Dialogue File", Application.dataPath, "ExportedDialogue", "json");
+
+        if (string.IsNullOrEmpty(datapath)) return;
+
+        StringBuilder jsonString = new StringBuilder();
+        foreach (var node in dialogueGraph.Nodes)
+        {
+            jsonString.AppendLine(JsonUtility.ToJson(node, true));
+        }
+
+        StreamWriter sw = new StreamWriter(datapath);
+        sw.Write(jsonString);
+        sw.Flush();
+        sw.Close();
+    }
+
     [Serializable]
     public class SaveData
     {
         [SerializeReference]
-        public List<DialogueBaseNode> testNodes;
+        public List<DialogueBaseNode> nodes;
 
         public SaveData(List<DialogueBaseNode> nodes)
         {
-            this.testNodes = nodes;
+            this.nodes = nodes;
         }
     }
 }

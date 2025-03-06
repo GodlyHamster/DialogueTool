@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class DialogueGraph : MonoBehaviour
 {
@@ -13,16 +14,44 @@ public class DialogueGraph : MonoBehaviour
 
     public void CreateStartNode()
     {
-        Debug.Log($"Created new start node");
+        foreach (DialogueBaseNode item in nodes)
+        {
+            if (item.GetType() == typeof(DialogueStartNode))
+            {
+                Debug.LogWarning("A start node already exists!");
+                return;
+            }
+        }
         GameObject node = Instantiate(StartNodePrefab, transform);
         InstantiateNode(new DialogueStartNode(), node);
     }
 
     public void CreateTextNode()
     {
-        Debug.Log($"Created new text node");
         GameObject node = Instantiate(TextNodePrefab, transform);
         InstantiateNode(new DialogueTextNode(), node);
+    }
+
+    public void LoadGraphFromArray(DialogueBaseNode[] nodeList)
+    {
+        foreach (DialogueBaseNode node in nodeList)
+        {
+            GameObject nodePrefab = null;
+            switch (node.NodeType)
+            {
+                case NodeTypes.StartNode:
+                    nodePrefab = Instantiate(StartNodePrefab, transform);
+                    break;
+                case NodeTypes.TextNode:
+                    nodePrefab = Instantiate(TextNodePrefab, transform);
+                    break;
+                default:
+                    Debug.LogWarning("Node type does not exist");
+                    break;
+            }
+            if (nodePrefab == null) continue;
+            InstantiateNode(node, nodePrefab);
+        }
     }
 
     public bool InstantiateNode(DialogueBaseNode node, GameObject linkedObject)
