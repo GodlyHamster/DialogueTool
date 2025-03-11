@@ -50,6 +50,9 @@ public class DialogueGraph : MonoBehaviour
                     break;
             }
             if (nodePrefab == null) continue;
+            DialogueBaseNodeUI nodeUI = nodePrefab.GetComponent<DialogueBaseNodeUI>();
+            nodeUI.nodeData = nodeData;
+            nodeUI.OnLoad();
             InstantiateNode(nodeData, nodePrefab);
         }
     }
