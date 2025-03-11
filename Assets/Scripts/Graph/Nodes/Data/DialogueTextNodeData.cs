@@ -5,8 +5,8 @@ public class DialogueTextNodeData : DialogueBaseNodeData
 {
     [field: SerializeField]
     private string text;
-    private NodeInput inputNode;
-    private NodeOutput outputNode;
+    private NodeConnectionUI inputNode;
+    private NodeConnectionUI outputNode;
 
     public void SetText(string text)
     {
