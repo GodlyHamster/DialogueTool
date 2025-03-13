@@ -1,12 +1,13 @@
-using Assets.Scripts.Graph;
 using UnityEngine;
 
 public class DialogueTextNodeData : DialogueBaseNodeData
 {
-    [field: SerializeField]
+    [SerializeField]
     private string text;
-    private NodeConnectionUI inputNode;
-    private NodeConnectionUI outputNode;
+    [SerializeField]
+    private NodeConnection inputNode;
+    [SerializeField]
+    private NodeConnection outputNode;
 
     public void SetText(string text)
     {
@@ -14,6 +15,11 @@ public class DialogueTextNodeData : DialogueBaseNodeData
     }
 
     public string GetText()
+    {
+        return text;
+    }
+
+    public override object GetExportData()
     {
         return text;
     }

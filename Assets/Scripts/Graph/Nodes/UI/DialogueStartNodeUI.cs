@@ -4,7 +4,9 @@ public class DialogueStartNodeUI : DialogueBaseNodeUI
 {
     public override void Setup()
     {
-        nodeData = new DialogueStartNodeData();
+        base.Setup();
         nodeData.NodeType = NodeTypes.StartNode;
+        if (nodeData != null) return;
+        nodeData = new DialogueStartNodeData();
     }
 }

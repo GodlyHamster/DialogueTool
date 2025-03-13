@@ -5,9 +5,12 @@ public class DialogueTextNodeUI : DialogueBaseNodeUI
 {
     public override void Setup()
     {
-        nodeData = new DialogueTextNodeData();
-        nodeData.NodeType = NodeTypes.TextNode;
+        base.Setup();
         gameObject.GetComponentInChildren<TMP_InputField>().onValueChanged.AddListener(OnTextChanged);
+
+        nodeData.NodeType = NodeTypes.TextNode;
+        if (nodeData != null) return;
+        nodeData = new DialogueTextNodeData();
     }
 
     public void OnTextChanged(string text)

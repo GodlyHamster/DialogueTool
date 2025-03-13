@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
@@ -37,8 +39,8 @@ namespace Assets.Scripts.Graph
             {
                 if (obj.TryGetComponent<NodeConnectionUI>(out NodeConnectionUI connection))
                 {
-                    if (connection == this) break;
-                    if (connection.nodeConnection.connectionType == nodeConnection.connectionType) return;
+                    if (connection == this) continue;
+                    if (connection.nodeConnection.connectionType == nodeConnection.connectionType) break;
                     nodeConnection.connectedOutput = connection.nodeConnection;
                     connection.nodeConnection = this.nodeConnection;
                     connection.OnPositionUpdated.AddListener(PositionUpdated);

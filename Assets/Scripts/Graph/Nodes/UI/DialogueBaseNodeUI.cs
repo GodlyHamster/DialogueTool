@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class DialogueBaseNodeUI : MonoBehaviour
@@ -12,7 +11,9 @@ public abstract class DialogueBaseNodeUI : MonoBehaviour
         nodeData.NodePosition = position;
     }
 
-    public virtual void Setup() {}
+    public virtual void Setup() {
+        nodeData.Init();
+    }
 
     public virtual void OnLoad() {}
 }
