@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using UnityEngine;
 
-public class DialogueTextNodeData : DialogueBaseNodeData
+public class DialogueTextNodeData : DialogueBaseNodeData, IOutputConnection
 {
     [SerializeField]
     private string text;
@@ -10,6 +10,11 @@ public class DialogueTextNodeData : DialogueBaseNodeData
     private NodeConnection inputNode;
     [SerializeField]
     private NodeConnection outputNode;
+
+    public NodeConnection nodeOutput { 
+        get { return outputNode; } 
+        set { outputNode = value; }
+    }
 
     public void SetText(string text)
     {
@@ -25,7 +30,7 @@ public class DialogueTextNodeData : DialogueBaseNodeData
     {
         StringBuilder jsonString = new StringBuilder();
 
-        jsonString.AppendLine(JsonUtility.ToJson(new TextNodeDataWrapper(NodeID, text, outputNode?.nodeGuid), true));
+        jsonString.Append(JsonUtility.ToJson(new TextNodeDataWrapper(NodeID, text, outputNode?.nodeGuid), true));
 
         return jsonString.ToString();
     }

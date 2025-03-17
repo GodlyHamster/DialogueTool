@@ -11,6 +11,13 @@ public class NodeConnection
     public NodeConnection()
     {
     }
+
+    public NodeConnection(string nodeGuid, NodeConnection connection, NodeConnectionType type)
+    {
+        this.nodeGuid = nodeGuid;
+        this.connectedOutput = connection;
+        this.connectionType = type;
+    }
 }
 
 public enum NodeConnectionType

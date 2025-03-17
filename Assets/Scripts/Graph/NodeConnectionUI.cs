@@ -42,7 +42,11 @@ namespace Assets.Scripts.Graph
                     if (connection == this) continue;
                     if (connection.nodeConnection.connectionType == nodeConnection.connectionType) break;
                     nodeConnection.connectedOutput = connection.nodeConnection;
-                    connection.nodeConnection = this.nodeConnection;
+                    connection.nodeConnection.connectedOutput = this.nodeConnection;
+                    if (parent.nodeData is IOutputConnection nodeOutput)
+                    {
+                        nodeOutput.nodeOutput = nodeConnection.connectedOutput;
+                    }
                     connection.OnPositionUpdated.AddListener(PositionUpdated);
                     return;
                 }
@@ -57,6 +61,7 @@ namespace Assets.Scripts.Graph
 
         private void Start()
         {
+            nodeConnection.nodeGuid = parent.nodeData.NodeID;
             switch (nodeConnection.connectionType)
             {
                 case NodeConnectionType.INPUT:

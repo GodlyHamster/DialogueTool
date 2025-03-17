@@ -12,7 +12,6 @@ public abstract class DialogueBaseNodeData
     {
         if (NodeID != null) return;
         NodeID = Guid.NewGuid().ToString();
-        Debug.Log($"Initialized new {this} with ID: {NodeID}");
     }
 
     /// <summary>
