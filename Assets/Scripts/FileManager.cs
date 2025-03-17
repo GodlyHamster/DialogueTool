@@ -1,21 +1,23 @@
-using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.IO;
 using System.Text;
+using SFB;
 
 public class FileManager : MonoBehaviour
 {
     [SerializeField]
     private DialogueGraph dialogueGraph;
 
+    ExtensionFilter[] extensions = new[] {
+        new ExtensionFilter("Dialogue Export File", "json")
+    };
+
     [ContextMenu("Load File")]
     public void LoadFile()
     {
-        string datapath = EditorUtility.OpenFilePanel("Open Dialogue File", Application.dataPath, "json");
-
-        if (string.IsNullOrEmpty(datapath)) return;
+        string datapath = StandaloneFileBrowser.OpenFilePanel("Load Dialogue File", Application.dataPath, extensions, false)[0];
 
         StreamReader reader = new StreamReader(datapath);
         string jsonString = reader.ReadToEnd();
@@ -27,7 +29,7 @@ public class FileManager : MonoBehaviour
     [ContextMenu("Save File")]
     public void SaveFile()
     {
-        string datapath = EditorUtility.SaveFilePanel("Save Dialogue File", Application.dataPath, "DefaultDialogue", "json");
+        string datapath = StandaloneFileBrowser.SaveFilePanel("Save Dialogue File", Application.dataPath, "DefaultDialogue", extensions);
 
         if (string.IsNullOrEmpty(datapath)) return;
 
@@ -43,7 +45,7 @@ public class FileManager : MonoBehaviour
     [ContextMenu("Export File")]
     public void ExportFile()
     {
-        string datapath = EditorUtility.SaveFilePanel("Export Dialogue File", Application.dataPath, "ExportedDialogue", "json");
+        string datapath = StandaloneFileBrowser.SaveFilePanel("Export Dialogue File", Application.dataPath, "ExportedDialogue", extensions);
 
         if (string.IsNullOrEmpty(datapath)) return;
 
