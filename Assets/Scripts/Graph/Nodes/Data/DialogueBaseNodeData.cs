@@ -15,5 +15,9 @@ public abstract class DialogueBaseNodeData
         Debug.Log($"Initialized new {this} with ID: {NodeID}");
     }
 
-    public virtual object GetExportData() { return null; }
+    /// <summary>
+    /// Should return the data as a json string
+    /// </summary>
+    /// <returns></returns>
+    public virtual string GetExportData() { return null; }
 }

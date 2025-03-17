@@ -50,7 +50,8 @@ public class FileManager : MonoBehaviour
         StringBuilder jsonString = new StringBuilder();
         foreach (var node in dialogueGraph.Nodes)
         {
-            jsonString.AppendLine(JsonUtility.ToJson(node.nodeData.GetExportData(), true));
+            Debug.Log(node.nodeData.GetExportData());
+            jsonString.AppendLine(node.nodeData.GetExportData());
         }
 
         StreamWriter sw = new StreamWriter(datapath);

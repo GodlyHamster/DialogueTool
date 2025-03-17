@@ -1,3 +1,5 @@
+using System;
+using System.Text;
 using UnityEngine;
 
 public class DialogueTextNodeData : DialogueBaseNodeData
@@ -19,8 +21,27 @@ public class DialogueTextNodeData : DialogueBaseNodeData
         return text;
     }
 
-    public override object GetExportData()
+    public override string GetExportData()
     {
-        return text;
+        StringBuilder jsonString = new StringBuilder();
+
+        jsonString.AppendLine(JsonUtility.ToJson(new TextNodeDataWrapper(NodeID, text, outputNode?.nodeGuid), true));
+
+        return jsonString.ToString();
+    }
+}
+
+[Serializable]
+public class TextNodeDataWrapper
+{
+    public string nodeID;
+    public string text;
+    public string outputNode;
+
+    public TextNodeDataWrapper(string nodeID, string text, string outputNode)
+    {
+        this.nodeID = nodeID;
+        this.text = text;
+        this.outputNode = outputNode;
     }
 }
