@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class DialogueBaseNodeUI : MonoBehaviour
@@ -15,5 +16,5 @@ public abstract class DialogueBaseNodeUI : MonoBehaviour
         nodeData.Init();
     }
 
-    public virtual void OnLoad() {}
+    public virtual void Load() {}
 }

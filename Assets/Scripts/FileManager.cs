@@ -19,6 +19,8 @@ public class FileManager : MonoBehaviour
     {
         string datapath = StandaloneFileBrowser.OpenFilePanel("Load Dialogue File", Application.dataPath, extensions, false)[0];
 
+        if (string.IsNullOrEmpty(datapath)) return;
+
         StreamReader reader = new StreamReader(datapath);
         string jsonString = reader.ReadToEnd();
 

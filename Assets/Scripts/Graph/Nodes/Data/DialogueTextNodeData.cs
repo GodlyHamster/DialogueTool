@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using UnityEngine;
 
-public class DialogueTextNodeData : DialogueBaseNodeData, IOutputConnection
+public class DialogueTextNodeData : DialogueBaseNodeData, IOutputConnection, IInputConnection
 {
     [SerializeField]
     private string text;
@@ -14,6 +14,11 @@ public class DialogueTextNodeData : DialogueBaseNodeData, IOutputConnection
     public NodeConnection nodeOutput { 
         get { return outputNode; } 
         set { outputNode = value; }
+    }
+    public NodeConnection nodeInput
+    {
+        get { return inputNode; }
+        set { inputNode = value; }
     }
 
     public void SetText(string text)

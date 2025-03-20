@@ -18,9 +18,9 @@ public class DialogueTextNodeUI : DialogueBaseNodeUI
         (nodeData as DialogueTextNodeData).SetText(text);
     }
 
-    public override void OnLoad()
+    public override void Load()
     {
-        base.OnLoad();
+        base.Load();
         gameObject.GetComponentInChildren<TMP_InputField>().text = (nodeData as DialogueTextNodeData).GetText();
     }
 }

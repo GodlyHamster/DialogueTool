@@ -4,6 +4,10 @@ using System;
 
 public class DialogueGraph : MonoBehaviour
 {
+    public static DialogueGraph Instance;
+
+    public event Action OnNodesLoaded;
+
     [SerializeField]
     private GameObject StartNodePrefab;
     [SerializeField]
@@ -11,6 +15,11 @@ public class DialogueGraph : MonoBehaviour
 
     private List<DialogueBaseNodeUI> nodes = new List<DialogueBaseNodeUI>();
     public List<DialogueBaseNodeUI> Nodes { get { return nodes; } }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void CreateStartNode()
     {
@@ -34,6 +43,8 @@ public class DialogueGraph : MonoBehaviour
 
     public void LoadGraphFromArray(DialogueBaseNodeData[] nodeList)
     {
+        ClearGraph();
+
         foreach (DialogueBaseNodeData nodeData in nodeList)
         {
             GameObject nodePrefab = null;
@@ -52,9 +63,10 @@ public class DialogueGraph : MonoBehaviour
             if (nodePrefab == null) continue;
             DialogueBaseNodeUI nodeUI = nodePrefab.GetComponent<DialogueBaseNodeUI>();
             nodeUI.nodeData = nodeData;
-            nodeUI.OnLoad();
+            nodeUI.Load();
             InstantiateNode(nodeData, nodePrefab);
         }
+        OnNodesLoaded.Invoke();
     }
 
     public bool InstantiateNode(DialogueBaseNodeData nodeData, GameObject linkedObject)
@@ -74,5 +86,26 @@ public class DialogueGraph : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    private void ClearGraph()
+    {
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            Destroy(nodes[i].gameObject);
+        }
+        nodes.Clear();
+    }
+
+    public DialogueBaseNodeUI GetNodeFromGuid(string guid)
+    {
+        foreach (DialogueBaseNodeUI node in nodes)
+        {
+            if (node.nodeData.NodeID == guid)
+            {
+                return node;
+            }
+        }
+        return null;
     }
 }
