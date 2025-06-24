@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEditor;
-using UnityEditor.MemoryProfiler;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 

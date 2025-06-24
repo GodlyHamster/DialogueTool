@@ -88,7 +88,7 @@ public class DialogueGraph : MonoBehaviour
         return true;
     }
 
-    private void ClearGraph()
+    public void ClearGraph()
     {
         for (int i = 0; i < nodes.Count; i++)
         {
@@ -107,5 +107,12 @@ public class DialogueGraph : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public void RemoveNode(DialogueBaseNodeUI node)
+    {
+        int nodeIndex = nodes.IndexOf(node);
+        Destroy(nodes[nodeIndex].gameObject);
+        nodes.RemoveAt(nodeIndex);
     }
 }

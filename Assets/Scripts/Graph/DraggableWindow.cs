@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Graph
 {
-    public class DraggableWindow : MonoBehaviour, IDragHandler, IEndDragHandler
+    public class DraggableWindow : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerClickHandler
     {
         [SerializeField]
         private DialogueBaseNodeUI parent;
@@ -29,6 +29,14 @@ namespace Assets.Scripts.Graph
         {
             parent.isBeingDragged = false;
             parent.SetPosition(window.anchoredPosition);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                DialogueGraph.Instance.RemoveNode(parent);
+            }
         }
     }
 }
