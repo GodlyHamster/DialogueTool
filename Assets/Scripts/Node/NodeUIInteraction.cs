@@ -10,6 +10,13 @@ public class NodeUIInteraction : MonoBehaviour
 
     private Stack<GameObject> options = new Stack<GameObject>();
 
+    public NodeData nodeData { get; private set; }
+
+    private void Awake()
+    {
+        nodeData = new NodeData();
+    }
+
     public void AddOption()
     {
         options.Push(Instantiate(optionPrefab, optionContainer));

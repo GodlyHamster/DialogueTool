@@ -7,36 +7,31 @@ using SFB;
 
 public class FileManager : MonoBehaviour
 {
-    [SerializeField]
-    private DialogueGraph dialogueGraph;
-
     ExtensionFilter[] extensions = new[] {
         new ExtensionFilter("Dialogue Export File", "json")
     };
 
-    [ContextMenu("Load File")]
     public void LoadFile()
     {
-        string datapath = StandaloneFileBrowser.OpenFilePanel("Load Dialogue File", Application.dataPath, extensions, false)[0];
+        //string datapath = StandaloneFileBrowser.OpenFilePanel("Load Dialogue File", Application.dataPath, extensions, false)[0];
 
-        if (string.IsNullOrEmpty(datapath)) return;
+        //if (string.IsNullOrEmpty(datapath)) return;
 
-        StreamReader reader = new StreamReader(datapath);
-        string jsonString = reader.ReadToEnd();
+        //StreamReader reader = new StreamReader(datapath);
+        //string jsonString = reader.ReadToEnd();
 
-        SaveData savedata = JsonUtility.FromJson<SaveData>(jsonString);
-        dialogueGraph.LoadGraphFromArray(savedata.nodes.ToArray());
+        //SaveData savedata = JsonUtility.FromJson<SaveData>(jsonString);
+        //dialogueGraph.LoadGraphFromArray(savedata.nodes.ToArray());
     }
 
-    [ContextMenu("Save File")]
     public void SaveFile()
     {
         string datapath = StandaloneFileBrowser.SaveFilePanel("Save Dialogue File", Application.dataPath, "DefaultDialogue", extensions);
 
         if (string.IsNullOrEmpty(datapath)) return;
 
-        SaveData file = new SaveData(dialogueGraph.Nodes);
-        string jsonString = JsonUtility.ToJson(file, true);
+        SaveData saveData = new SaveData(NodeGraph.Instance.nodes);
+        string jsonString = JsonUtility.ToJson(saveData, true);
 
         StreamWriter sw = new StreamWriter(datapath);
         sw.Write(jsonString);
@@ -44,34 +39,33 @@ public class FileManager : MonoBehaviour
         sw.Close();
     }
 
-    [ContextMenu("Export File")]
     public void ExportFile()
     {
-        string datapath = StandaloneFileBrowser.SaveFilePanel("Export Dialogue File", Application.dataPath, "ExportedDialogue", extensions);
+        //string datapath = StandaloneFileBrowser.SaveFilePanel("Export Dialogue File", Application.dataPath, "ExportedDialogue", extensions);
 
-        if (string.IsNullOrEmpty(datapath)) return;
+        //if (string.IsNullOrEmpty(datapath)) return;
 
-        StringBuilder jsonString = new StringBuilder();
-        foreach (var node in dialogueGraph.Nodes)
-        {
-            jsonString.AppendLine(node.nodeData.GetExportData());
-        }
+        //StringBuilder jsonString = new StringBuilder();
+        //foreach (var node in dialogueGraph.Nodes)
+        //{
+        //    jsonString.AppendLine(node.nodeData.GetExportData());
+        //}
 
-        StreamWriter sw = new StreamWriter(datapath);
-        sw.Write(jsonString);
-        sw.Flush();
-        sw.Close();
+        //StreamWriter sw = new StreamWriter(datapath);
+        //sw.Write(jsonString);
+        //sw.Flush();
+        //sw.Close();
     }
 
     [Serializable]
     public class SaveData
     {
         [SerializeReference]
-        public List<DialogueBaseNodeData> nodes;
+        public List<NodeData> nodes;
 
-        public SaveData(List<DialogueBaseNodeUI> nodes)
+        public SaveData(List<NodeUIInteraction> nodes)
         {
-            this.nodes = new List<DialogueBaseNodeData>();
+            this.nodes = new List<NodeData>();
             foreach (var node in nodes)
             {
                 this.nodes.Add(node.nodeData);

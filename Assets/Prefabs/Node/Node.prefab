@@ -279,8 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e33f6da3fb2e0547b712aed40210a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  window: {fileID: 0}
+  window: {fileID: 1325237233990573444}
   graphCanvas: {fileID: 0}
 --- !u!1 &2266313567326882990
 GameObject:
@@ -297,7 +296,7 @@ GameObject:
   - component: {fileID: 6511432406623828705}
   - component: {fileID: 3674419477192504024}
   m_Layer: 5
-  m_Name: Template
+  m_Name: Node
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

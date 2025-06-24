@@ -4,23 +4,22 @@ using UnityEngine.EventSystems;
 
 public class InterfaceButton : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
 {
-    private bool isOpened;
+    public bool toggleClick = false;
+    private bool isOpened = false;
 
     public UnityEvent OnClick = new UnityEvent();
     public UnityEvent OnClose = new UnityEvent();
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (isOpened)
+        if (toggleClick)
         {
-            isOpened = false;
-            OnClose.Invoke();
+            isOpened = !isOpened;
+            if (isOpened) OnClick.Invoke();
+            if (!isOpened) OnClose.Invoke();
+            return;
         }
-        else
-        {
-            isOpened = true;
-            OnClick.Invoke();
-        }
+        OnClick.Invoke();
     }
 
     public void OnPointerExit(PointerEventData eventData)

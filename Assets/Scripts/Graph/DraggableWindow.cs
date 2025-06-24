@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Graph
@@ -44,7 +43,8 @@ namespace Assets.Scripts.Graph
         {
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                Debug.Log("Remove this node");
+                NodeUIInteraction thisNode = gameObject.GetComponentInParent<NodeUIInteraction>();
+                NodeGraph.Instance.RemoveNode(thisNode);
             }
         }
     }
