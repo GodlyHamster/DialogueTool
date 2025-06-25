@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 
 public class NodeGraph : MonoBehaviour
 {
@@ -31,5 +32,27 @@ public class NodeGraph : MonoBehaviour
         int nodeIndex = nodes.IndexOf(node);
         Destroy(nodes[nodeIndex].gameObject);
         nodes.RemoveAt(nodeIndex);
+    }
+
+    public void ClearGraph()
+    {
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            Destroy(nodes[i].gameObject);
+        }
+        nodes.Clear();
+    }
+
+    public void LoadNodes(NodeData[] nodeArray)
+    {
+        foreach (NodeData node in nodeArray)
+        {
+            GameObject newNodeObj = Instantiate(nodePrefab, transform);
+            NodeUIInteraction nodeUI = newNodeObj.GetComponent<NodeUIInteraction>();
+
+            nodeUI.LoadFromData(node);
+
+            nodes.Add(nodeUI);
+        }
     }
 }

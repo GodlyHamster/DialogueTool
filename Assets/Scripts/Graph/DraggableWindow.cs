@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,6 +15,8 @@ namespace Assets.Scripts.Graph
         private RectTransform thisRect;
         private Vector3 mouseWorld;
 
+        private NodeUIInteraction node;
+
         public event Action StartDrag;
         public event Action EndDrag;
 
@@ -21,6 +24,7 @@ namespace Assets.Scripts.Graph
         {
             graphCanvas = GetComponentInParent<Canvas>();
             thisRect = GetComponent<RectTransform>();
+            node = GetComponentInParent<NodeUIInteraction>();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -36,6 +40,7 @@ namespace Assets.Scripts.Graph
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            node.nodeData.Position = window.anchoredPosition;
             EndDrag?.Invoke();
         }
 

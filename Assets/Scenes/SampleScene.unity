@@ -1387,6 +1387,34 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1762969776584694839, guid: a47596a3455c15b4d8f30724332bd25b, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762969776584694839, guid: a47596a3455c15b4d8f30724332bd25b, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762969776584694839, guid: a47596a3455c15b4d8f30724332bd25b, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1708442797}
+    - target: {fileID: 1762969776584694839, guid: a47596a3455c15b4d8f30724332bd25b, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762969776584694839, guid: a47596a3455c15b4d8f30724332bd25b, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClearGraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762969776584694839, guid: a47596a3455c15b4d8f30724332bd25b, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NodeGraph, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762969776584694839, guid: a47596a3455c15b4d8f30724332bd25b, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1922400084569182261, guid: a47596a3455c15b4d8f30724332bd25b, type: 3}
       propertyPath: m_IsActive
       value: 0

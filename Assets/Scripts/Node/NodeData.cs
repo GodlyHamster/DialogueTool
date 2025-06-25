@@ -12,6 +12,17 @@ public class NodeData
     /// </summary>
     [SerializeField] private List<string> connectionIDs;
 
+    public string NodeID { 
+        get { return nodeID; }
+    }
+    public Vector2 Position { 
+        get { return position; }
+        set { position = value; }
+    }
+    public List<string> ConnectionIDs { 
+        get { return connectionIDs; }
+    }
+
     public NodeData()
     {
         nodeID = Guid.NewGuid().ToString();

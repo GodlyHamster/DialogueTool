@@ -13,15 +13,15 @@ public class FileManager : MonoBehaviour
 
     public void LoadFile()
     {
-        //string datapath = StandaloneFileBrowser.OpenFilePanel("Load Dialogue File", Application.dataPath, extensions, false)[0];
+        string datapath = StandaloneFileBrowser.OpenFilePanel("Load Dialogue File", Application.dataPath, extensions, false)[0];
 
-        //if (string.IsNullOrEmpty(datapath)) return;
+        if (string.IsNullOrEmpty(datapath)) return;
 
-        //StreamReader reader = new StreamReader(datapath);
-        //string jsonString = reader.ReadToEnd();
+        StreamReader reader = new StreamReader(datapath);
+        string jsonString = reader.ReadToEnd();
 
-        //SaveData savedata = JsonUtility.FromJson<SaveData>(jsonString);
-        //dialogueGraph.LoadGraphFromArray(savedata.nodes.ToArray());
+        SaveData savedata = JsonUtility.FromJson<SaveData>(jsonString);
+        NodeGraph.Instance.LoadNodes(savedata.nodes.ToArray());
     }
 
     public void SaveFile()
