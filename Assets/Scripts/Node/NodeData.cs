@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
-using UnityEngine.Events;
 using TMPro;
+using Assets.Scripts.Graph;
 
 [Serializable]
 public class NodeData
@@ -75,7 +75,26 @@ public class DialogueOption
     public string optionText;
     public string outputNodeID;
 
+    private ConnectionUI connector;
+
     private TMP_InputField.OnChangeEvent onChangeEvent;
+
+    public DialogueOption(ConnectionUI connector)
+    {
+        this.connector = connector;
+        this.connector.OnConnectionUpdated += NodeConnectionUpdated;
+    }
+
+    private void NodeConnectionUpdated(string outputNodeID)
+    {
+        this.outputNodeID = outputNodeID;
+    }
+
+    ~DialogueOption()
+    {
+        onChangeEvent.RemoveAllListeners();
+        this.connector.OnConnectionUpdated -= NodeConnectionUpdated;
+    }
 
     public void AddInputListenEvent(TMP_InputField.OnChangeEvent changeEvent)
     {
@@ -86,10 +105,5 @@ public class DialogueOption
     public void UpdateText(string newText)
     {
         optionText = newText;
-    }
-
-    ~DialogueOption()
-    {
-        onChangeEvent.RemoveAllListeners();
     }
 }

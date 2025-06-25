@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -17,6 +17,8 @@ public class NodeUIInteraction : MonoBehaviour
 
     public NodeData nodeData { get; private set; }
 
+    public event Action<Vector2> OnPositionUpdated;
+
     private void OnEnable()
     {
         dialogueInput.onValueChanged.AddListener((string param) => { nodeData.DialogueText = param; });
@@ -33,6 +35,12 @@ public class NodeUIInteraction : MonoBehaviour
         thisRect = GetComponent<RectTransform>();
     }
 
+    public void SetPosition(Vector2 position)
+    {
+        nodeData.Position = position;
+        OnPositionUpdated?.Invoke(position);
+    }
+
     public void LoadFromData(NodeData data)
     {
         nodeData = new NodeData(data);
@@ -46,15 +54,20 @@ public class NodeUIInteraction : MonoBehaviour
 
     public void AddOption()
     {
-        options.Push(Instantiate(optionPrefab, optionContainer));
-        DialogueOption option = new DialogueOption();
-        option.AddInputListenEvent(options.Peek().GetComponentInChildren<TMP_InputField>().onValueChanged);
+        GameObject optionObj = Instantiate(optionPrefab, optionContainer);
+        options.Push(optionObj);
+
+        ConnectionUI connector = optionObj.GetComponentInChildren<ConnectionUI>();
+        DialogueOption option = new DialogueOption(connector);
+        option.AddInputListenEvent(optionObj.GetComponentInChildren<TMP_InputField>().onValueChanged);
         nodeData.DialogueOptions.Add(option);
     }
     private void AddOptionFromData(DialogueOption optionData)
     {
-        options.Push(Instantiate(optionPrefab, optionContainer));
-        TMP_InputField inputField = options.Peek().GetComponentInChildren<TMP_InputField>();
+        GameObject optionObj = Instantiate(optionPrefab, optionContainer);
+        options.Push(optionObj);
+
+        TMP_InputField inputField = optionObj.GetComponentInChildren<TMP_InputField>();
         inputField.text = optionData.optionText;
         optionData.AddInputListenEvent(inputField.onValueChanged);
     }

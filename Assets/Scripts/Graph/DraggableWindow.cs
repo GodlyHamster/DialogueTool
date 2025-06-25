@@ -34,13 +34,14 @@ namespace Assets.Scripts.Graph
 
         public void OnDrag(PointerEventData eventData)
         {
-            mouseWorld = eventData.pointerCurrentRaycast.worldPosition;
+            mouseWorld = Camera.main.ScreenToWorldPoint(eventData.position);
             window.anchoredPosition = mouseWorld;
+            node.SetPosition(mouseWorld);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            node.nodeData.Position = window.anchoredPosition;
+            node.SetPosition(window.anchoredPosition);
             EndDrag?.Invoke();
         }
 
