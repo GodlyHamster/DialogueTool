@@ -45,6 +45,7 @@ public class NodeGraph : MonoBehaviour
     public void LoadNodes(NodeData[] nodeArray)
     {
         ClearGraph();
+        //spawn in nodes and set their data
         foreach (NodeData node in nodeArray)
         {
             GameObject newNodeObj = Instantiate(nodePrefab, transform);
@@ -54,5 +55,22 @@ public class NodeGraph : MonoBehaviour
 
             nodes.Add(nodeUI);
         }
+        //connect all the nodes
+        foreach (NodeUIInteraction node in nodes)
+        {
+            node.ApplyOptionConnections();
+        }
+    }
+
+    public NodeUIInteraction GetNodeFromID(string id)
+    {
+        foreach (NodeUIInteraction node in nodes)
+        {
+            if (node.nodeData.NodeID == id)
+            {
+                return node;
+            }
+        }
+        return null;
     }
 }

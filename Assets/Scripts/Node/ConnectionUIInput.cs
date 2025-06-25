@@ -8,11 +8,14 @@ public class ConnectionUIInput : MonoBehaviour
 
     public event Action<Vector2> OnPositionUpdated;
 
-    private void Start()
+    private void Awake()
     {
         thisRect = GetComponent<RectTransform>();
         nodeParent = GetComponentInParent<NodeUIInteraction>();
+    }
 
+    private void Start()
+    {
         nodeParent.OnPositionUpdated += PositionUpdated;
     }
 

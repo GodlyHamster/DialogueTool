@@ -16,12 +16,14 @@ public class ConnectionUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     /// </summary>
     public event Action<string> OnConnectionUpdated;
 
-    private void Start()
+    private void Awake()
     {
-        lineRenderer.enabled = false;
         nodeParent = GetComponentInParent<NodeUIInteraction>();
         thisRect = GetComponent<RectTransform>();
+    }
 
+    private void Start()
+    {
         nodeParent.OnPositionUpdated += NodePosUpdated;
     }
 
@@ -59,6 +61,16 @@ public class ConnectionUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
         currentConnection.OnPositionUpdated -= ConnectionPosUpdated;
         OnConnectionUpdated?.Invoke("");
         lineRenderer.enabled = false;
+    }
+
+    public void SetConnection(string nodeID)
+    {
+        NodeUIInteraction connectedNode = NodeGraph.Instance.GetNodeFromID(nodeID);
+        currentConnection = connectedNode.gameObject.GetComponentInChildren<ConnectionUIInput>();
+        currentConnection.OnPositionUpdated += ConnectionPosUpdated;
+        lineRenderer.SetPosition(0, thisRect.position);
+        lineRenderer.SetPosition(1, currentConnection.thisRect.position);
+        lineRenderer.enabled = true;
     }
 
     private void ConnectionPosUpdated(Vector2 position)

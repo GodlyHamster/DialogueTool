@@ -75,7 +75,7 @@ public class DialogueOption
     public string optionText;
     public string outputNodeID;
 
-    private ConnectionUI connector;
+    public ConnectionUI connector { get; private set; }
 
     private TMP_InputField.OnChangeEvent onChangeEvent;
 
@@ -85,21 +85,25 @@ public class DialogueOption
         this.connector.OnConnectionUpdated += NodeConnectionUpdated;
     }
 
-    private void NodeConnectionUpdated(string outputNodeID)
-    {
-        this.outputNodeID = outputNodeID;
-    }
-
     ~DialogueOption()
     {
         onChangeEvent.RemoveAllListeners();
         this.connector.OnConnectionUpdated -= NodeConnectionUpdated;
+    }
+    private void NodeConnectionUpdated(string outputNodeID)
+    {
+        this.outputNodeID = outputNodeID;
     }
 
     public void AddInputListenEvent(TMP_InputField.OnChangeEvent changeEvent)
     {
         onChangeEvent = changeEvent;
         onChangeEvent.AddListener(UpdateText);
+    }
+
+    public void SetConnector(ConnectionUI connector)
+    {
+        this.connector = connector;
     }
 
     public void UpdateText(string newText)

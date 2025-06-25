@@ -68,6 +68,7 @@ public class NodeUIInteraction : MonoBehaviour
         options.Push(optionObj);
 
         TMP_InputField inputField = optionObj.GetComponentInChildren<TMP_InputField>();
+        optionData.SetConnector(optionObj.GetComponentInChildren<ConnectionUI>());
         inputField.text = optionData.optionText;
         optionData.AddInputListenEvent(inputField.onValueChanged);
     }
@@ -77,5 +78,13 @@ public class NodeUIInteraction : MonoBehaviour
         Destroy(options.Peek());
         options.Pop();
         nodeData.DialogueOptions.RemoveAt(nodeData.DialogueOptions.Count - 1);
+    }
+
+    public void ApplyOptionConnections()
+    {
+        foreach (DialogueOption option in nodeData.DialogueOptions)
+        {
+            option.connector.SetConnection(option.outputNodeID);
+        }
     }
 }
