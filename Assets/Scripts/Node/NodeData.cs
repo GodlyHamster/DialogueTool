@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine.Events;
+using TMPro;
 
 [Serializable]
 public class NodeData
@@ -68,8 +70,26 @@ public class NodeDataWrapper
 }
 
 [Serializable]
-public struct DialogueOption
+public class DialogueOption
 {
     public string optionText;
     public string outputNodeID;
+
+    private TMP_InputField.OnChangeEvent onChangeEvent;
+
+    public DialogueOption(TMP_InputField.OnChangeEvent ChangedEvent)
+    {
+        onChangeEvent = ChangedEvent;
+        onChangeEvent.AddListener(UpdateText);
+    }
+
+    public void UpdateText(string newText)
+    {
+        optionText = newText;
+    }
+
+    ~DialogueOption()
+    {
+        onChangeEvent.RemoveAllListeners();
+    }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -46,7 +47,7 @@ public class NodeUIInteraction : MonoBehaviour
     public void AddOption()
     {
         options.Push(Instantiate(optionPrefab, optionContainer));
-        nodeData.DialogueOptions.Add(new DialogueOption());
+        nodeData.DialogueOptions.Add(new DialogueOption(options.Peek().GetComponentInChildren<TMP_InputField>().onValueChanged));
     }
     private void AddOptionFromData(DialogueOption optionData)
     {
