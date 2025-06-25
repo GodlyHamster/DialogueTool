@@ -3,7 +3,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
 using TMPro;
-using Assets.Scripts.Graph;
 
 [Serializable]
 public class NodeData
