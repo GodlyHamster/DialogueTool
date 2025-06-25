@@ -417,6 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d778cb3f9e9f84b87116bc9d96563b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueInput: {fileID: 4229868907647276562}
   optionPrefab: {fileID: 6151068638883591873, guid: c62b7a8fefeec4f47bbf35d97fa51772, type: 3}
   optionContainer: {fileID: 2279239482604316205}
 --- !u!1 &2999285429767515783

@@ -1,16 +1,15 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class NodeData
 {
     [SerializeField] private string nodeID;
     [SerializeField] private Vector2 position;
-    /// <summary>
-    /// An array of the connected node's ids
-    /// </summary>
-    [SerializeField] private List<string> connectionIDs;
+    [SerializeField] private string dialogueText;
+    [SerializeField] private List<DialogueOption> dialogueOptions;
 
     public string NodeID { 
         get { return nodeID; }
@@ -19,21 +18,58 @@ public class NodeData
         get { return position; }
         set { position = value; }
     }
-    public List<string> ConnectionIDs { 
-        get { return connectionIDs; }
+    public string DialogueText
+    {
+        get { return dialogueText; }
+        set {  dialogueText = value; }
+    }
+    public List<DialogueOption> DialogueOptions { 
+        get { return dialogueOptions; }
     }
 
     public NodeData()
     {
         nodeID = Guid.NewGuid().ToString();
         position = Vector2.zero;
-        connectionIDs = new List<string>();
+        dialogueOptions = new List<DialogueOption>();
     }
 
     public NodeData(NodeData data)
     {
         this.nodeID = data.nodeID;
         this.position = data.position;
-        this.connectionIDs = data.connectionIDs;
+        this.dialogueText = data.dialogueText;
+        this.dialogueOptions = data.dialogueOptions;
     }
+
+    public string GetExportData()
+    {
+        StringBuilder jsonString = new StringBuilder();
+
+        jsonString.Append(JsonUtility.ToJson(new NodeDataWrapper(this), true));
+
+        return jsonString.ToString();
+    }
+}
+
+[Serializable]
+public class NodeDataWrapper
+{
+    public string nodeID;
+    public string dialogueText;
+    public List<DialogueOption> dialogueOptions;
+
+    public NodeDataWrapper(NodeData nodeData)
+    {
+        nodeID = nodeData.NodeID;
+        dialogueText = nodeData.DialogueText;
+        dialogueOptions = nodeData.DialogueOptions;
+    }
+}
+
+[Serializable]
+public struct DialogueOption
+{
+    public string optionText;
+    public string outputNodeID;
 }

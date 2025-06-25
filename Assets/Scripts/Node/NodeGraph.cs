@@ -45,6 +45,7 @@ public class NodeGraph : MonoBehaviour
 
     public void LoadNodes(NodeData[] nodeArray)
     {
+        ClearGraph();
         foreach (NodeData node in nodeArray)
         {
             GameObject newNodeObj = Instantiate(nodePrefab, transform);

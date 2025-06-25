@@ -41,20 +41,20 @@ public class FileManager : MonoBehaviour
 
     public void ExportFile()
     {
-        //string datapath = StandaloneFileBrowser.SaveFilePanel("Export Dialogue File", Application.dataPath, "ExportedDialogue", extensions);
+        string datapath = StandaloneFileBrowser.SaveFilePanel("Export Dialogue File", Application.dataPath, "ExportedDialogue", extensions);
 
-        //if (string.IsNullOrEmpty(datapath)) return;
+        if (string.IsNullOrEmpty(datapath)) return;
 
-        //StringBuilder jsonString = new StringBuilder();
-        //foreach (var node in dialogueGraph.Nodes)
-        //{
-        //    jsonString.AppendLine(node.nodeData.GetExportData());
-        //}
+        StringBuilder jsonString = new StringBuilder();
+        foreach (var node in NodeGraph.Instance.nodes)
+        {
+            jsonString.AppendLine(node.nodeData.GetExportData());
+        }
 
-        //StreamWriter sw = new StreamWriter(datapath);
-        //sw.Write(jsonString);
-        //sw.Flush();
-        //sw.Close();
+        StreamWriter sw = new StreamWriter(datapath);
+        sw.Write(jsonString);
+        sw.Flush();
+        sw.Close();
     }
 
     [Serializable]
