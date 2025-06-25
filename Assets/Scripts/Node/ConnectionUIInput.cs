@@ -4,7 +4,7 @@ using UnityEngine;
 public class ConnectionUIInput : MonoBehaviour
 {
     public RectTransform thisRect { get; private set; }
-    public NodeUIInteraction nodeParent {  get; private set; }
+    public NodeUIInteraction nodeParent { get; private set; }
 
     public event Action<Vector2> OnPositionUpdated;
 

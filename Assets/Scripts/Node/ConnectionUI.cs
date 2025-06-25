@@ -72,6 +72,7 @@ public class ConnectionUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     public void SetConnection(string nodeID)
     {
         NodeUIInteraction connectedNode = NodeGraph.Instance.GetNodeFromID(nodeID);
+        if (connectedNode == null) return;
         currentConnection = connectedNode.gameObject.GetComponentInChildren<ConnectionUIInput>();
         currentConnection.OnPositionUpdated += ConnectionPosUpdated;
         lineRenderer.enabled = true;
