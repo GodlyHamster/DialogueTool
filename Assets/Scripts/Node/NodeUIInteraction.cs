@@ -47,12 +47,16 @@ public class NodeUIInteraction : MonoBehaviour
     public void AddOption()
     {
         options.Push(Instantiate(optionPrefab, optionContainer));
-        nodeData.DialogueOptions.Add(new DialogueOption(options.Peek().GetComponentInChildren<TMP_InputField>().onValueChanged));
+        DialogueOption option = new DialogueOption();
+        option.AddInputListenEvent(options.Peek().GetComponentInChildren<TMP_InputField>().onValueChanged);
+        nodeData.DialogueOptions.Add(option);
     }
     private void AddOptionFromData(DialogueOption optionData)
     {
         options.Push(Instantiate(optionPrefab, optionContainer));
-        //enter text
+        TMP_InputField inputField = options.Peek().GetComponentInChildren<TMP_InputField>();
+        inputField.text = optionData.optionText;
+        optionData.AddInputListenEvent(inputField.onValueChanged);
     }
     public void RemoveOption()
     {

@@ -77,9 +77,9 @@ public class DialogueOption
 
     private TMP_InputField.OnChangeEvent onChangeEvent;
 
-    public DialogueOption(TMP_InputField.OnChangeEvent ChangedEvent)
+    public void AddInputListenEvent(TMP_InputField.OnChangeEvent changeEvent)
     {
-        onChangeEvent = ChangedEvent;
+        onChangeEvent = changeEvent;
         onChangeEvent.AddListener(UpdateText);
     }
 
