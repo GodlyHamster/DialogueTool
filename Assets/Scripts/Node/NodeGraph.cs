@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using System.Threading.Tasks;
 
 public class NodeGraph : MonoBehaviour
@@ -13,7 +12,7 @@ public class NodeGraph : MonoBehaviour
     private ConfirmationPopup startingNodePopup;
 
     public List<NodeUIInteraction> nodes { get; private set; } = new List<NodeUIInteraction>();
-    public NodeUIInteraction startingNode { get; private set; }
+    public string startingNodeId { get; private set; }
 
     private void Awake()
     {
@@ -28,16 +27,12 @@ public class NodeGraph : MonoBehaviour
         Vector3 camPos = Camera.main.transform.position;
         nodeObj.transform.position = new Vector3(camPos.x, camPos.y, 0);
 
-        if (startingNode != null)
-        {
-            startingNode = newNode;
-        }
         nodes.Add(newNode);
     }
 
     public void RemoveNode(NodeUIInteraction node)
     {
-        if (startingNode == node) startingNode = null;
+        if (startingNodeId == node.nodeData.NodeID) startingNodeId = null;
         int nodeIndex = nodes.IndexOf(node);
         Destroy(nodes[nodeIndex].gameObject);
         nodes.RemoveAt(nodeIndex);
@@ -72,38 +67,29 @@ public class NodeGraph : MonoBehaviour
         }
     }
 
-    public async Task<bool> SetStartingNode(NodeUIInteraction node, bool setTrue)
+    public async Task<bool> SetStartingNode(string nodeID, bool setToTrue)
     {
-        if (startingNode != node && setTrue == false)
+        if (GetNodeFromID(nodeID) == null) return false;
+        if (startingNodeId == null && setToTrue)
         {
-            Debug.Log("action1");
-            return false;
-        }
-        if (startingNode == null && setTrue)
-        {
-            Debug.Log("action2");
-            startingNode = node;
+            startingNodeId = nodeID;
             return true;
         }
-        if (startingNode == node && setTrue == false)
+        if (nodeID == startingNodeId && setToTrue == false)
         {
-            Debug.Log("action3");
-            startingNode = null;
+            startingNodeId = null;
             return false;
         }
-        if (startingNode != node && setTrue)
+        if (nodeID != startingNodeId && setToTrue)
         {
-            Debug.Log("action4");
             bool result = await startingNodePopup.GetPopupResult();
-            if (result)
+            if (result == true)
             {
-                startingNode.SetAsStartingNode(false);
-                startingNode = node;
-                return true;
+                GetNodeFromID(startingNodeId).SetAsStartingNode(false);
+                startingNodeId = nodeID;
             }
+            return result;
         }
-
-        Debug.Log("action5");
         return false;
     }
 

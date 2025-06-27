@@ -48,9 +48,11 @@ public class NodeUIInteraction : MonoBehaviour
 
     public async void SetAsStartingNode(bool value)
     {
-        bool result = await NodeGraph.Instance.SetStartingNode(this, value);
+        startingNodeToggle.onValueChanged.RemoveAllListeners();
+        bool result = await NodeGraph.Instance.SetStartingNode(nodeData.NodeID, value);
         startingNodeToggle.isOn = result;
         nodeData.IsBeginNode = result;
+        startingNodeToggle.onValueChanged.AddListener(SetAsStartingNode);
     }
 
     public void LoadFromData(NodeData data)
@@ -58,6 +60,7 @@ public class NodeUIInteraction : MonoBehaviour
         nodeData = new NodeData(data);
         thisRect.transform.position = nodeData.Position;
         dialogueInput.text = nodeData.DialogueText;
+        if (nodeData.IsBeginNode) SetAsStartingNode(true);
         foreach (DialogueOption option in nodeData.DialogueOptions)
         {
             AddOptionFromData(option);
