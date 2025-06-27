@@ -37,6 +37,7 @@ public class NodeGraph : MonoBehaviour
 
     public void RemoveNode(NodeUIInteraction node)
     {
+        if (startingNode == node) startingNode = null;
         int nodeIndex = nodes.IndexOf(node);
         Destroy(nodes[nodeIndex].gameObject);
         nodes.RemoveAt(nodeIndex);
@@ -73,18 +74,26 @@ public class NodeGraph : MonoBehaviour
 
     public async Task<bool> SetStartingNode(NodeUIInteraction node, bool setTrue)
     {
+        if (startingNode != node && setTrue == false)
+        {
+            Debug.Log("action1");
+            return false;
+        }
         if (startingNode == null && setTrue)
         {
+            Debug.Log("action2");
             startingNode = node;
             return true;
         }
         if (startingNode == node && setTrue == false)
         {
+            Debug.Log("action3");
             startingNode = null;
             return false;
         }
         if (startingNode != node && setTrue)
         {
+            Debug.Log("action4");
             bool result = await startingNodePopup.GetPopupResult();
             if (result)
             {
@@ -94,6 +103,7 @@ public class NodeGraph : MonoBehaviour
             }
         }
 
+        Debug.Log("action5");
         return false;
     }
 
