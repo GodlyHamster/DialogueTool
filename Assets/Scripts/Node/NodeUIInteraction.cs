@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NodeUIInteraction : MonoBehaviour
 {
     [SerializeField]
     private TMP_InputField dialogueInput;
+    [SerializeField]
+    private Toggle startingNodeToggle;
     [SerializeField]
     private GameObject optionPrefab;
     [SerializeField]
@@ -23,11 +25,13 @@ public class NodeUIInteraction : MonoBehaviour
     private void OnEnable()
     {
         dialogueInput.onValueChanged.AddListener((string param) => { nodeData.DialogueText = param; });
+        startingNodeToggle.onValueChanged.AddListener(SetAsStartingNode);
     }
 
     private void OnDisable()
     {
         dialogueInput.onValueChanged.RemoveAllListeners();
+        startingNodeToggle.onValueChanged.RemoveAllListeners();
     }
 
     private void Awake()
@@ -40,6 +44,13 @@ public class NodeUIInteraction : MonoBehaviour
     {
         nodeData.Position = position;
         OnPositionUpdated?.Invoke(position);
+    }
+
+    public async void SetAsStartingNode(bool value)
+    {
+        bool result = await NodeGraph.Instance.SetStartingNode(this, value);
+        startingNodeToggle.isOn = result;
+        nodeData.IsBeginNode = result;
     }
 
     public void LoadFromData(NodeData data)

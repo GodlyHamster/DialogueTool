@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using System.Threading.Tasks;
 
 public class NodeGraph : MonoBehaviour
 {
@@ -7,8 +9,11 @@ public class NodeGraph : MonoBehaviour
 
     [SerializeField]
     private GameObject nodePrefab;
+    [SerializeField]
+    private ConfirmationPopup startingNodePopup;
 
     public List<NodeUIInteraction> nodes { get; private set; } = new List<NodeUIInteraction>();
+    public NodeUIInteraction startingNode { get; private set; }
 
     private void Awake()
     {
@@ -18,12 +23,16 @@ public class NodeGraph : MonoBehaviour
     public void SpawnNode()
     {
         GameObject nodeObj = Instantiate(nodePrefab, transform);
-        NodeUIInteraction nodeUI = nodeObj.GetComponent<NodeUIInteraction>();
+        NodeUIInteraction newNode = nodeObj.GetComponent<NodeUIInteraction>();
 
         Vector3 camPos = Camera.main.transform.position;
         nodeObj.transform.position = new Vector3(camPos.x, camPos.y, 0);
 
-        nodes.Add(nodeUI);
+        if (startingNode != null)
+        {
+            startingNode = newNode;
+        }
+        nodes.Add(newNode);
     }
 
     public void RemoveNode(NodeUIInteraction node)
@@ -60,6 +69,32 @@ public class NodeGraph : MonoBehaviour
         {
             node.ApplyOptionConnections();
         }
+    }
+
+    public async Task<bool> SetStartingNode(NodeUIInteraction node, bool setTrue)
+    {
+        if (startingNode == null && setTrue)
+        {
+            startingNode = node;
+            return true;
+        }
+        if (startingNode == node && setTrue == false)
+        {
+            startingNode = null;
+            return false;
+        }
+        if (startingNode != node && setTrue)
+        {
+            bool result = await startingNodePopup.GetPopupResult();
+            if (result)
+            {
+                startingNode.SetAsStartingNode(false);
+                startingNode = node;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public NodeUIInteraction GetNodeFromID(string id)

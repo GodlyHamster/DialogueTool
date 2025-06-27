@@ -9,6 +9,7 @@ public class NodeData
 {
     [SerializeField] private string nodeID;
     [SerializeField] private Vector2 position;
+    [SerializeField] private bool isBeginNode;
     [SerializeField] private string dialogueText;
     [SerializeField] private List<DialogueOption> dialogueOptions;
 
@@ -18,6 +19,11 @@ public class NodeData
     public Vector2 Position { 
         get { return position; }
         set { position = value; }
+    }
+    public bool IsBeginNode
+    {
+        get { return isBeginNode; }
+        set { isBeginNode = value; }
     }
     public string DialogueText
     {
@@ -31,6 +37,7 @@ public class NodeData
     public NodeData()
     {
         nodeID = Guid.NewGuid().ToString();
+        isBeginNode = false;
         position = Vector2.zero;
         dialogueOptions = new List<DialogueOption>();
     }
@@ -39,6 +46,7 @@ public class NodeData
     {
         this.nodeID = data.nodeID;
         this.position = data.position;
+        this.isBeginNode = data.isBeginNode;
         this.dialogueText = data.dialogueText;
         this.dialogueOptions = data.dialogueOptions;
     }
@@ -57,12 +65,14 @@ public class NodeData
 public class NodeDataWrapper
 {
     public string nodeID;
+    public bool isBeginNode;
     public string dialogueText;
     public List<DialogueOption> dialogueOptions;
 
     public NodeDataWrapper(NodeData nodeData)
     {
         nodeID = nodeData.NodeID;
+        isBeginNode = nodeData.IsBeginNode;
         dialogueText = nodeData.DialogueText;
         dialogueOptions = nodeData.DialogueOptions;
     }
